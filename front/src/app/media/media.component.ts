@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
 
 
 interface Media {
@@ -7,6 +9,13 @@ interface Media {
   type:string;
   title:string;
   author:string;
+}
+
+interface Loaning {
+  media: Media;
+  //start: date;
+  //end: date;
+  user: string;
 }
 
 @Component({
@@ -18,6 +27,9 @@ interface Media {
 export class MediaComponent implements OnInit {
 url ='';
 medias: Media[];
+noResult:any = null;
+author:string;
+
 
 
   constructor(private http:HttpClient )
@@ -30,6 +42,23 @@ medias: Media[];
      });
 
    }
+
+   getMedias() {
+
+
+   let url: string = 'http://localhost:8000/media/json';
+   url += `?author=${this.author}`;
+
+   this.http.get(url)
+     .subscribe((res:Media[]) =>{
+       this.medias = res;
+       console.log(res);
+     });
+
+
+ }
+
+
 
   ngOnInit() {
   }

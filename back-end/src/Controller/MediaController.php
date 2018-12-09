@@ -47,16 +47,45 @@ class MediaController extends AbstractController
     /**
      * @Route("/media/json", name="media_json")
      */
-    public function index_json()
+    // public function index_json()
+    // {
+    //   $medias = $this->getDoctrine()
+    //     ->getRepository(Media::class)
+    //     ->findAllAssoc()
+    //     ;
+    //   // json_encode encode le corps de la requête
+    //   // mais n'ajoute aucun header supplémentaire
+    //   // indiquant au client qu'il s'agit de json
+    //
+    //   return new JsonResponse($medias);
+    // }
+
+
+    /**
+     * @Route("/media/json", name="media_json")
+     */
+    public function index_json(Request $request)
     {
+
+      // récupération des paramètres URL
+      $author = $request->query->get('author');
+      if($author != null){
       $medias = $this->getDoctrine()
         ->getRepository(Media::class)
-        ->findAllAssoc()
+        ->findByFiltersAssoc($author)
         ;
-      // json_encode encode le corps de la requête
-      // mais n'ajoute aucun header supplémentaire
-      // indiquant au client qu'il s'agit de json
-      // return new Response(json_encode($categories));
+      }else{
+        $medias = $this->getDoctrine()
+            ->getRepository(Media::class)
+            ->findAllAssoc()
+            ;
+
+      }
       return new JsonResponse($medias);
+
+
     }
+
+
+
 }

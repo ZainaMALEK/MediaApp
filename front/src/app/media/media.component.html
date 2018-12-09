@@ -1,7 +1,10 @@
 
 
-<input type="search" name="" value="" placeholder="Recherche par auteur">
-<button  name="button">Rechercher</button>
+<input type="search" name="" value="" placeholder="Recherche par auteur"  [(ngModel)]="author">
+<button   name="button" (click)="getMedias()">Rechercher</button><br>
+
+<input type="text" name="" value="" placeholder="Entrez votre nom pour pouvoir emprunter"  [(ngModel)]="user">
+<button   name="button">J'emprunte un livre</button>
 
 <div class="container">
 

@@ -31,4 +31,40 @@ class MediaRepository extends ServiceEntityRepository
       $query->execute();
       return $query->fetchAll();
     }
+
+
+    public function findByFiltersAssoc($author)
+    {
+      $connection = $this->getEntityManager()
+        ->getConnection();
+      $sql =
+      'SELECT *
+        FROM media
+        WHERE author LIKE :author'
+      ;
+
+      $query = $connection->prepare($sql);
+      $query->execute([':author' => $author]);
+      $medias = $query->fetchAll();
+      //dump($medias);
+
+
+
+      $medias_assoc = [];
+      $key = 'id';
+      foreach($medias as $media) {
+        // extraction de l'id de la question ($answer[$key])
+        // afin de créer un indice dans le tableau
+        // $questions
+        $medias_assoc[] =
+          array(
+            'type' => $media['type'],
+            'title' => $media['title'],
+            'author' => $media['author']
+          );
+    }
+    return $medias_assoc;
+
+  }
+
 }
