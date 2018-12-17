@@ -10,14 +10,12 @@ interface Media {
   type:string;
   title:string;
   author:string;
+  start:string;
+  end:string;
+  user:string;
 }
 
-interface Loaning {
-  media: Media;
-  //start: date;
-  //end: date;
-  user: string;
-}
+
 
 @Component({
   selector: 'app-media',
@@ -34,51 +32,34 @@ author:string='';
 user:string='';
 
 
-    constructor(private mediaService: MediaService){
-       this.mediaService.getMedia()
-       .subscribe((res: Media[]) => {
-         this.medias= res
-       })
+    constructor(private mediaService: MediaService)
+    {
+      this.getMedias();
+
+    }
+
+    getMedias()
+    {
+      this.mediaService.getMedias()
+      .subscribe((res: Media[]) => {
+        this.medias= res
+      })
     }
 
 
-  // constructor(private http:HttpClient )
-  // {
-  //     this.url = 'http://localhost:8000/media/json';
-  //     this.http.get(this.url)
-  //    .subscribe((res:Media[]) => {
-  //      this.medias = res;
-  //      console.log(res);
-  //    });
-  //
-  //  }
+    saveLoaning(media_id){
+      this.mediaService.newMediaLoaning(media_id, this.user)
+      .subscribe(res =>{
+        this.getMedias();
 
-   getMedias() {
-     let url: string = 'http://localhost:8000/media/json';
-     url += `?author=${this.author}`;
+        //mettre à jour le DOM en mettant a joue this.media
+      })
+    }
 
-     this.http.get(url)
-       .subscribe((res:Media[]) =>{
-         this.medias = res;
-         console.log(res);
-       });
-   }
 
-   test(media_id){
-     console.log(this.user, media_id)
-     let url: string = 'http://localhost:8000/loaning';
 
-     let loaning={
-       "media_id":media_id,
-       "user": this.user
-     }
-     this.http.post(url,loaning )
-       .subscribe((res) =>{
 
-         console.log(res);
-       });
 
-   }
 
 
 

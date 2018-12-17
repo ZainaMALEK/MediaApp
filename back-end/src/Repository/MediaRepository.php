@@ -48,10 +48,7 @@ class MediaRepository extends ServiceEntityRepository
       $query = $connection->prepare($sql);
       $query->execute([':author' => '%'.$author.'%']);
       $medias = $query->fetchAll();
-      //dump($medias);
-
-
-
+      
       $medias_assoc = [];
       $key = 'id';
       foreach($medias as $media) {

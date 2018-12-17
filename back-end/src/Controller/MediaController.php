@@ -54,12 +54,15 @@ class MediaController extends AbstractController
 
       // récupération des paramètres URL
       $author = $request->query->get('author');
-      if($author != null){
+      
+      if($author != null)
+      {
       $medias = $this->getDoctrine()
         ->getRepository(Media::class)
         ->findByFiltersAssoc($author)
         ;
-      }else{
+      }else
+      {
         $medias = $this->getDoctrine()
             ->getRepository(Media::class)
             ->findAllAssoc()

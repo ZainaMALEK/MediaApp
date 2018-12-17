@@ -26,13 +26,13 @@
 
  -->
 
- <table>
+ <table class=" table table-bordered">
    <thead>
      <tr>
        <th>Titre</th>
        <th>Auteur</th>
        <th>Catégorie</th>
-       <th></th>
+       <th>Disponibilité</th>
      </tr>
    </thead>
    <tbody>
@@ -40,8 +40,10 @@
       <td>{{media.title}}</td>
       <td>{{media.author}}</td>
       <td>{{media.type}}</td>
-      <td></td>
-
+      <td>
+      <div *ngIf="media.end"> Retour le{{media.end}} <span>emprunté par {{media.user}}</span></div>
+      <button *ngIf="!media.end"(click)="saveLoaning(media.id)" class="btn">Emprunter</button>
+      </td>
      </tr>
    </tbody>
  </table>

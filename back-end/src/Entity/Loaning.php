@@ -3,12 +3,20 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LoaningRepository")
  */
 class Loaning
 {
+
+    function __construct($media, $user){
+      $this->media = $media;
+      $this->start = new \DateTime('now');
+      $this->end = new \DateTime('now + 30 days');
+      $this->user = $user;
+    }
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
