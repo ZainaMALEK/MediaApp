@@ -4,9 +4,9 @@
 <button   name="button" (click)="getMedias()">Rechercher</button><br>
 
 <input type="text" name="" value="" placeholder="Entrez votre nom pour pouvoir emprunter"  [(ngModel)]="user">
-<button   name="button">J'emprunte un livre</button>
+<!-- <button   name="button">J'emprunte un livre</button> -->
 
-<div class="container">
+ <!-- <div class="container">
 
     <div class="row">
       <div *ngFor="let media of medias" class="col-md-3">
@@ -17,9 +17,31 @@
             <h5 class="card-title">Titre: {{ media.title}}</h5>
             <p class="card-text">Auteur: {{media.author}}</p>
             <p class="card-text">Catégorie: {{media.type}}</p>
-            <a href="#" class="btn btn-primary">Emprunter</a>
+            <a href="#" class="btn btn-primary" (click)="test(media.id)">Emprunter</a>
           </div>
-        </div><!--fin div card-->
-      </div><!--fin div col-md-3 -->
-    </div><!--fin div row-->
-</div><!--fin div container-->
+        </div>
+      </div>
+    </div>
+</div>
+
+ -->
+
+ <table>
+   <thead>
+     <tr>
+       <th>Titre</th>
+       <th>Auteur</th>
+       <th>Catégorie</th>
+       <th></th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr *ngFor="let media of medias">
+      <td>{{media.title}}</td>
+      <td>{{media.author}}</td>
+      <td>{{media.type}}</td>
+      <td></td>
+
+     </tr>
+   </tbody>
+ </table>

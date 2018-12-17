@@ -24,8 +24,10 @@ class MediaRepository extends ServiceEntityRepository
       $connection = $this->getEntityManager()
         ->getConnection();
       $sql =
-        'SELECT *
+        'SELECT media.id, type, author,title, start, end, user
           FROM media
+          LEFT JOIN loaning ON loaning.media_id = media.id
+          WHERE loaning.end > NOW() OR loaning.end IS NULL
         ';
       $query = $connection->prepare($sql);
       $query->execute();
@@ -44,7 +46,7 @@ class MediaRepository extends ServiceEntityRepository
       ;
 
       $query = $connection->prepare($sql);
-      $query->execute([':author' => $author]);
+      $query->execute([':author' => '%'.$author.'%']);
       $medias = $query->fetchAll();
       //dump($medias);
 

@@ -4,16 +4,21 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class LoaningController extends AbstractController
 {
+
     /**
      * @Route("/loaning", name="loaning")
      */
-    public function index()
+    public function loan(Request $request)
     {
-        return $this->render('loaning/index.html.twig', [
-            'controller_name' => 'LoaningController',
-        ]);
+        $request_body=json_decode($request->getContent());
+
+        
+        return new JsonResponse($request_body->user);
+
     }
 }

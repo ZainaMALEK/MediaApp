@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+//import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { MediaService } from '../media.service';
 
 
 
@@ -25,38 +26,59 @@ interface Loaning {
 })
 
 export class MediaComponent implements OnInit {
+
 url ='';
-medias: Media[];
+medias: Media[] =[]
 noResult:any = null;
-author:string;
+author:string='';
+user:string='';
 
 
+    constructor(private mediaService: MediaService){
+       this.mediaService.getMedia()
+       .subscribe((res: Media[]) => {
+         this.medias= res
+       })
+    }
 
-  constructor(private http:HttpClient )
-  {
-      this.url = 'http://localhost:8000/media/json';
-      this.http.get(this.url)
-     .subscribe((res:Media[]) => {
-       this.medias = res;
-       console.log(res);
-     });
 
-   }
+  // constructor(private http:HttpClient )
+  // {
+  //     this.url = 'http://localhost:8000/media/json';
+  //     this.http.get(this.url)
+  //    .subscribe((res:Media[]) => {
+  //      this.medias = res;
+  //      console.log(res);
+  //    });
+  //
+  //  }
 
    getMedias() {
+     let url: string = 'http://localhost:8000/media/json';
+     url += `?author=${this.author}`;
 
+     this.http.get(url)
+       .subscribe((res:Media[]) =>{
+         this.medias = res;
+         console.log(res);
+       });
+   }
 
-   let url: string = 'http://localhost:8000/media/json';
-   url += `?author=${this.author}`;
+   test(media_id){
+     console.log(this.user, media_id)
+     let url: string = 'http://localhost:8000/loaning';
 
-   this.http.get(url)
-     .subscribe((res:Media[]) =>{
-       this.medias = res;
-       console.log(res);
-     });
+     let loaning={
+       "media_id":media_id,
+       "user": this.user
+     }
+     this.http.post(url,loaning )
+       .subscribe((res) =>{
 
+         console.log(res);
+       });
 
- }
+   }
 
 
 
