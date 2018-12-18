@@ -21,11 +21,11 @@ export class MediaService {
 
   }
 
-  getMedias(){
+  getMedias(author, type){
     //On renvois la promesse(phase 1 du traitement asynchrone)
     //on ne souscrit pas ici au niveau du service
     return this.http
-    .get(this.serverUrl+'media/json');
+    .get(this.serverUrl+'media/json?author='+ author +'&type='+ type);
 
   }
 

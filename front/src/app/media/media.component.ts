@@ -30,6 +30,7 @@ medias: Media[] =[]
 noResult:any = null;
 author:string='';
 user:string='';
+type:string='';
 
 
     constructor(private mediaService: MediaService)
@@ -40,9 +41,10 @@ user:string='';
 
     getMedias()
     {
-      this.mediaService.getMedias()
+      this.mediaService.getMedias(this.author, this.type)
       .subscribe((res: Media[]) => {
-        this.medias= res
+        this.medias= res;
+        console.log(this.medias)
       })
     }
 
@@ -54,6 +56,11 @@ user:string='';
 
         //mettre à jour le DOM en mettant a joue this.media
       })
+    }
+
+    nbLoaning(){
+      let loanedMedias = this.medias.filter(media => media.user == this.user)
+      return loanedMedias.length;
     }
 
 

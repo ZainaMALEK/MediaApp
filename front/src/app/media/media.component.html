@@ -1,9 +1,20 @@
 
 
-<input type="search" name="" value="" placeholder="Recherche par auteur"  [(ngModel)]="author">
-<button   name="button" (click)="getMedias()">Rechercher</button><br>
+<input type="search" name="" value="" placeholder="Recherche par auteur"  [(ngModel)]="author" (keyup)="getMedias()">
+<select  (change)="getMedias()" [(ngModel)]="type">
+  <option value="">Choisir catégorie</option>
+  <option>Livre</option>
+  <option>Film</option>
+  <option>Audio</option>
+</select>
 
-<input type="text" name="" value="" placeholder="Entrez votre nom pour pouvoir emprunter"  [(ngModel)]="user">
+<div id="user">
+  <input type="text" name="" value="" placeholder="Entrez votre nom pour pouvoir emprunter"  [(ngModel)]="user">
+  <br>
+  <span>{{nbLoaning()}} emprunts</span>
+
+</div>
+
 <!-- <button   name="button">J'emprunte un livre</button> -->
 
  <!-- <div class="container">
@@ -42,7 +53,7 @@
       <td>{{media.type}}</td>
       <td>
       <div *ngIf="media.end"> Retour le{{media.end}} <span>emprunté par {{media.user}}</span></div>
-      <button *ngIf="!media.end"(click)="saveLoaning(media.id)" class="btn">Emprunter</button>
+      <button *ngIf="!media.end && user.length > 3"(click)="saveLoaning(media.id)" class="btn">Emprunter</button>
       </td>
      </tr>
    </tbody>

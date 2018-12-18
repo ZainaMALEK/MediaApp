@@ -51,26 +51,16 @@ class MediaController extends AbstractController
      */
     public function index_json(Request $request)
     {
-
       // récupération des paramètres URL
       $author = $request->query->get('author');
-      
-      if($author != null)
-      {
+      $type = $request->query->get('type');
+
       $medias = $this->getDoctrine()
         ->getRepository(Media::class)
-        ->findByFiltersAssoc($author)
+        ->findByFiltersAssoc($author, $type)
         ;
-      }else
-      {
-        $medias = $this->getDoctrine()
-            ->getRepository(Media::class)
-            ->findAllAssoc()
-            ;
 
-      }
       return new JsonResponse($medias);
-
 
     }
 
