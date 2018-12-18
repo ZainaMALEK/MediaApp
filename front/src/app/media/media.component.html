@@ -9,33 +9,11 @@
 </select>
 
 <div id="user">
-  <input type="text" name="" value="" placeholder="Entrez votre nom pour pouvoir emprunter"  [(ngModel)]="user">
+  <input type="text" placeholder="Entrez votre nom pour pouvoir emprunter"  [(ngModel)]="user">
   <br>
   <span>{{nbLoaning()}} emprunts</span>
-
 </div>
 
-<!-- <button   name="button">J'emprunte un livre</button> -->
-
- <!-- <div class="container">
-
-    <div class="row">
-      <div *ngFor="let media of medias" class="col-md-3">
-
-        <div  class="card" style="width: 18rem;">
-          <img class="card-img-top" src="https://www.universmini.com/images/pas-de-visuel.jpg" >
-          <div class="card-body">
-            <h5 class="card-title">Titre: {{ media.title}}</h5>
-            <p class="card-text">Auteur: {{media.author}}</p>
-            <p class="card-text">Catégorie: {{media.type}}</p>
-            <a href="#" class="btn btn-primary" (click)="test(media.id)">Emprunter</a>
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
-
- -->
 
  <table class=" table table-bordered">
    <thead>
@@ -52,7 +30,11 @@
       <td>{{media.author}}</td>
       <td>{{media.type}}</td>
       <td>
-      <div *ngIf="media.end"> Retour le{{media.end}} <span>emprunté par {{media.user}}</span></div>
+      <div *ngIf="media.end"> Retour le{{media.end}} <span>emprunté par {{media.user}}</span></div><br>
+      <a *ngIf="media.user" href="#" (click)="history(media.user)">Historique des emprunts de: {{media.user}}</a>
+        <section class="history" *ngIf="historyUser == media.user">
+          <p *ngFor="let historyMedia of historyMedias">{{historyMedia.title}}</p>
+        </section>
       <button *ngIf="!media.end && user.length > 3"(click)="saveLoaning(media.id)" class="btn">Emprunter</button>
       </td>
      </tr>

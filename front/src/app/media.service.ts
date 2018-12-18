@@ -35,4 +35,12 @@ export class MediaService {
     )
   }
 
+  getHistoryService(user){
+    //On renvois la promesse(phase 1 du traitement asynchrone)
+    //on ne souscrit pas ici au niveau du service
+    return this.http
+    .get(this.serverUrl+'media/user?user='+ user);
+
+  }
+
 }

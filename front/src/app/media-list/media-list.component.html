@@ -11,8 +11,25 @@
 
   </head>
   <body>
-    <!--app-test></app-test-->
-    <app-media></app-media>
+
+    <div class="container">
+        <div class="row">
+          <div *ngFor="let media of medias" class="col-md-3">
+
+            <div  class="card" style="width: 18rem;">
+              <img class="card-img-top" src="https://www.universmini.com/images/pas-de-visuel.jpg" >
+              <div class="card-body">
+                <h5 class="card-title">Titre: {{ media.title}}</h5>
+                <p class="card-text">Auteur: {{media.author}}</p>
+                <p class="card-text">Catégorie: {{media.type}}</p>
+                <a href="#" class="btn btn-primary" (click)="test(media.id)">Emprunter</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
