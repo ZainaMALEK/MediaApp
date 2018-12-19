@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MediaService } from '../media.service';
+import { delay } from 'rxjs/operators';
 
 
 
@@ -35,6 +36,7 @@ type:string='';
 historyMedias:Media[]=[]
 historyUser:string='';
 hidden:boolean = false;
+loadingIndex:number =-1;
 
 
     constructor(private mediaService: MediaService)
@@ -45,7 +47,10 @@ hidden:boolean = false;
 
     getMedias()
     {
-      this.mediaService.getMedias(this.author, this.type)
+      this.mediaService
+      .getMedias(this.author, this.type)
+      .pipe(
+      delay(1000))
       .subscribe((res: Media[]) => {
         this.medias= res;
         console.log(this.medias)
@@ -54,10 +59,14 @@ hidden:boolean = false;
 
 
     saveLoaning(media_id){
+      this.loadingIndex = 1;
       this.mediaService.newMediaLoaning(media_id, this.user)
+      .pipe(
+      delay(2000))
       .subscribe(res =>{
         this.getMedias();
         //mettre à jour le DOM en mettant a joue this.media
+        this.loadingIndex= -1;
       })
     }
 

@@ -55,6 +55,7 @@ class MediaController extends AbstractController
       $author = $request->query->get('author');
       $type = $request->query->get('type');
 
+
       $medias = $this->getDoctrine()
         ->getRepository(Media::class)
         ->findByFiltersAssoc($author, $type)
@@ -63,6 +64,21 @@ class MediaController extends AbstractController
       return new JsonResponse($medias);
 
     }
+
+    /**
+     * @Route("/media/user", name="media_user")
+     */
+    public function userMedia(Request $request)
+    {
+    $user = $request->query->get('user');
+    $medias = $this->getDoctrine()
+      ->getRepository(Media::class)
+      ->findMediaByUser( $user);
+      ;
+
+    return new JsonResponse($medias);
+    }
+
 
 
 

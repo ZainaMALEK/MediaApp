@@ -7,7 +7,7 @@
   <option>Film</option>
   <option>Audio</option>
 </select>
-
+<img *ngIf="medias.length === 0" src="assets/loading.gif" alt="">
 <div id="user">
   <input type="text" placeholder="Entrez votre nom pour pouvoir emprunter"  [(ngModel)]="user">
   <br>
@@ -15,7 +15,7 @@
 </div>
 
 
- <table class=" table table-bordered">
+ <table *ngIf="medias.length !==0 "class=" table table-bordered">
    <thead>
      <tr>
        <th>Titre</th>
@@ -25,7 +25,7 @@
      </tr>
    </thead>
    <tbody>
-     <tr *ngFor="let media of medias">
+     <tr *ngFor="let media of medias; let i= index">
       <td>{{media.title}}</td>
       <td>{{media.author}}</td>
       <td>{{media.type}}</td>
@@ -35,6 +35,7 @@
         <section class="history" *ngIf="historyUser == media.user">
           <p *ngFor="let historyMedia of historyMedias">{{historyMedia.title}}</p>
         </section>
+      <img *ngIf="loadingIndex ===i" height="30px" src="assets/loading.gif">
       <button *ngIf="!media.end && user.length > 3"(click)="saveLoaning(media.id)" class="btn">Emprunter</button>
       </td>
      </tr>
